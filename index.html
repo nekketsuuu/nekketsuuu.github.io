@@ -1,0 +1,34 @@
+---
+layout: default
+---
+
+<div class="home">
+
+  <h1 class="page-heading">Posts</h1>
+
+  <ul class="post-list">
+    {% for post in site.categories.entries %}
+      <li>
+	<div>
+          <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}&nbsp;:&nbsp;</span>
+          <span><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></span>
+	</div>
+	<div class="post-digest">{{ post.content | strip_html | strip_newlines | truncatewords: 10 }}</div>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h1 class="page-heading">Slides</h1>
+
+  <ul class="post-list">
+    {% for post in site.categories.slides %}
+      <li>
+	<div>
+          <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}&nbsp;:&nbsp;</span>
+          <span><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></span>
+	</div>
+	<div class="post-digest">{{ post.content | strip_html | strip_newlines | truncatewords: 10 }}</div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

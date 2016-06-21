@@ -1,0 +1,23 @@
+encoding: utf-8
+timezone: Asia/Tokyo
+
+# Site settings
+title: nekketsu^ω
+title-math: \mathsf{nekketsu}^\omega
+description:  I'm nekketsuu (ω)
+baseurl: ""
+url: "https://nekketsuuu.github.io"
+twitter_username: nekketsuuu
+github_username:  nekketsuuu
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+gems:
+  - jemoji
+  - jekyll-mentions
+  - jekyll-redirect-from
+  - jekyll-sitemap
+future: true
