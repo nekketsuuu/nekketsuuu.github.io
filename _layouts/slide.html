@@ -45,7 +45,7 @@
           { src: '{{ site.reveal_path }}lib/js/classList.js', condition: function() { return !document.body.classList; } },
           { src: '{{ site.reveal_path }}plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
           { src: '{{ site.reveal_path }}plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-          { src: '{{ site.reveal_path }}plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '{{ site.reveal_path }}plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
           { src: '{{ site.reveal_path }}plugin/zoom-js/zoom.js', async: true },
           { src: '{{ site.reveal_path }}plugin/notes/notes.js', async: true },
           { src: '{{ site.reveal_path }}plugin/math/math.js', async: true }
