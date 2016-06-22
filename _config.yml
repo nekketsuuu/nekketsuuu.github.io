@@ -4,11 +4,24 @@ timezone: Asia/Tokyo
 # Site settings
 title: nekketsu^ω
 title-math: \mathsf{nekketsu}^\omega
-description:  I'm nekketsuu (ω)
+description:  I'm nekketsuuu (ω)
 baseurl: ""
+reveal_path: /reveal.js/
 url: "https://nekketsuuu.github.io"
 twitter_username: nekketsuuu
 github_username:  nekketsuuu
+
+defaults:
+  -
+    scope:
+      path: "entries"
+    values:
+      layout: "entry"
+  -
+    scope:
+      path: "slides"
+    values:
+      layout: "slide"
 
 # Build settings
 markdown: kramdown
@@ -17,7 +30,6 @@ kramdown:
   hard_wrap: false
 gems:
   - jemoji
-  - jekyll-mentions
   - jekyll-redirect-from
   - jekyll-sitemap
 future: true
