@@ -32,6 +32,8 @@
 
 	/* SECTION 2: Remove any elements not needed in print.
 	   This would include navigation, ads, sidebars, etc. */
+	/* nekketsuuu added site-header */
+	.site-header,
 	.nestedarrow,
 	.controls,
 	.fork-reveal,

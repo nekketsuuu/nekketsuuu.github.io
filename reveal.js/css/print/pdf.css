@@ -24,6 +24,8 @@ html {
 }
 
 /* Remove any elements not needed in print. */
+/* nekketsuuu added site-header */
+.site-header,
 .nestedarrow,
 .reveal .controls,
 .reveal .progress,

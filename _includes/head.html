@@ -8,9 +8,21 @@
 
   <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
   {% if page.categories contains "slides" %}
-    <link rel="stylesheet" href="{{ "/reveal.js/css/reveal.css" | prepend: site.baseurl }}">
-    <link rel="stylesheet" href="{{ "/reveal.js/css/theme/white.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ site.reveal_path }}css/reveal.css">
+    <link rel="stylesheet" href="{{ site.reveal_path }}css/theme/white.css">
   {% endif %}
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
+
+  {{ if page.categories contains "slides" }}
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '{{ site.reveal_path }}css/print/pdf.css' : '{{ site.reveal_path }}css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  {{ endif }}
+
 </head>
