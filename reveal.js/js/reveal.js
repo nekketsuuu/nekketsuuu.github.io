@@ -1070,6 +1070,12 @@
 			dom.controlsNext.forEach( function( el ) { el.addEventListener( eventName, onNavigateNextClicked, false ); } );
 		} );
 
+	        // these lines are added by nekketsuuu
+	        document.addEventListener( 'webkitfullscreenchange', onFullscreenChange, false );
+    	        document.addEventListener( 'mozfullscreenchange', onFullscreenChange, false );
+	        document.addEventListener( 'msfullscreenchange', onFullscreenChange, false );
+	        document.addEventListener( 'fullscreenchange', onFullscreenChange, false );
+
 	}
 
 	/**
@@ -1113,6 +1119,12 @@
 			dom.controlsPrev.forEach( function( el ) { el.removeEventListener( eventName, onNavigatePrevClicked, false ); } );
 			dom.controlsNext.forEach( function( el ) { el.removeEventListener( eventName, onNavigateNextClicked, false ); } );
 		} );
+
+	        // these lines are added by nekketsuuu
+	        document.removeEventListener( 'webkitfullscreenchange', onFullscreenChange, false );
+    	        document.removeEventListener( 'mozfullscreenchange', onFullscreenChange, false );
+	        document.removeEventListener( 'msfullscreenchange', onFullscreenChange, false );
+	        document.removeEventListener( 'fullscreenchange', onFullscreenChange, false );
 
 	}
 
@@ -1994,6 +2006,9 @@
 	 * @see https://developer.mozilla.org/en-US/docs/DOM/Using_fullscreen_mode
 	 */
 	function enterFullscreen() {
+
+	        // this line is added by nekketsuuu
+	        document.querySelector('.site-header').style.visibility = 'hidden';
 
 		var element = document.documentElement;
 
@@ -4395,6 +4410,24 @@
 		// Pause
 		else {
 			pauseAutoSlide();
+		}
+
+	}
+
+	/**
+	 * Handles a exit of fullscreen
+	 * these lines are added by nekketsuuu
+	 */
+        function onFullscreenChange( event ) {
+
+	        console.log("pohe");
+	        var fullscreenElement = document.fullscreenElement ||
+		                                             document.webkitFullscreenElement ||
+		                                             document.mozFullscreenElement ||
+		                                             document.msFullscreenElement;
+	        console.log(fullscreenElement);
+	        if ( !fullscreenElement || fullscreenElement == null ) {
+	                document.querySelector('.site-header').style.visibility = 'visible';
 		}
 
 	}
