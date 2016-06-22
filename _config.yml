@@ -34,7 +34,8 @@ kramdown:
   input: GFM
   hard_wrap: false
 gems:
-  - jemoji
+  - jekyll-feed
   - jekyll-redirect-from
   - jekyll-sitemap
+  - jemoji
 future: true
