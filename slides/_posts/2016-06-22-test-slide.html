@@ -1,0 +1,56 @@
+---
+title: Test Slide
+theme: white
+transition: slide
+---
+
+{{ site.slide.begin }}
+## これはテスト用スライドです
+----------------------------
+@nekketsuuu
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+## lorem ipsum
+-------------
+
+* pohe
+* pohepohe
+* pohepohepohe
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+## ショートカットキーとか
+------------------------
+
+* キーボードの「?」を押すとヘルプが出る
+ * 特に、Fを押すと最大化、Bを押すと沈黙
+* URLの最後に`?print-pdf`をつけて[適当に設定する](https://github.com/hakimel/reveal.js/#pdf-export)と良い感じにPDF印刷できる
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+## Math
+-------
+
+* ピタゴラスの定理: $a^2 + b^2 = c^2$
+* 適当な積分
+
+$$
+  \int_{-\infty}^\infty e^{-x^2} \mathit{d}x = \sqrt{\pi}
+$$
+
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+## Scripts
+----------
+
+``` C
+#include <stdio.h>
+
+int main() {
+  printf("Hello world\n");
+  return 0;
+}
+```
+{{ site.slide.end }}
