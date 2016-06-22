@@ -23,6 +23,11 @@ defaults:
     values:
       layout: "slide"
 
+# For writing markdown for slide easily
+slide:
+  begin: '<section data-markdown><script type="text/template">'
+  end: '</script></section>'
+
 # Build settings
 markdown: kramdown
 kramdown:
