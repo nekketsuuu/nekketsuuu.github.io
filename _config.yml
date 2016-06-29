@@ -3,7 +3,7 @@ timezone: Asia/Tokyo
 
 # Site settings
 title: nekketsu^ω
-title-math: \mathsf{nekketsu}^\omega
+title_math: \mathsf{nekketsu}^\omega
 description:  I'm nekketsuuu (ω)
 baseurl: ""
 reveal_path: /reveal.js/
