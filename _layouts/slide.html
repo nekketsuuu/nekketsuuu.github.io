@@ -30,6 +30,17 @@
         center: false,
         mouseWheel: false,
 
+        {% if page.width %}
+          width: {{ page.width }},
+        {% else %}
+          width: 960,
+        {% endif %}
+        {% if page.height %}
+          height: {{ page.height }},
+        {% else %}
+          height: 700,
+        {% endif %}
+
         {% if page.transition %}
           transition: '{{page.transition}}',
         {% else %}
