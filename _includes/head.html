@@ -11,24 +11,7 @@
 
   <!-- settings for reveal.js -->
   {% if page.categories contains "slides" %}
-    <link rel="stylesheet" href="{{ site.reveal_path }}css/reveal.css">
-    {% if page.theme %}
-      <link rel="stylesheet" href="{{ site.reveal_path}}css/theme/{{ page.theme }}.css">
-    {% else %}
-      <link rel="stylesheet" href="{{ site.reveal_path }}css/theme/white.css">
-    {% endif %}
-
-    <!-- Code syntax highlighting -->
-    <link rel="stylesheet" href="{{ site.reveal_path }}lib/css/zenburn.css">
-
-    <!-- Printing and PDF exports -->
-    <script>
-      var link = document.createElement( 'link' );
-      link.rel = 'stylesheet';
-      link.type = 'text/css';
-      link.href = window.location.search.match( /print-pdf/gi ) ? '{{ site.reveal_path }}css/print/pdf.css' : '{{ site.reveal_path }}css/print/paper.css';
-      document.getElementsByTagName( 'head' )[0].appendChild( link );
-    </script>
+    {% include head_slide.html %}
   {% endif %}
 
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
