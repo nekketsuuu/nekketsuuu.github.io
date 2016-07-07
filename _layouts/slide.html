@@ -7,7 +7,11 @@
 
     {% include header.html %}
 
-    <div class="reveal">
+    <div class="reveal"
+	 {% if page.font-size %}
+	   style="font-size: {{ page.font-size }};"
+	 {% endif %}
+	 >
       <div class="slides">
 	{{ content }}
       </div>
