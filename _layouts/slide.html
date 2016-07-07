@@ -21,8 +21,8 @@
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
     <!-- reveal.js -->
-    <script src="{{ site.reveal_path }}lib/js/head.min.js"></script>
-    <script src="{{ site.reveal_path }}js/reveal.js"></script>
+    <script src="{{ site.reveal_path }}/lib/js/head.min.js"></script>
+    <script src="{{ site.reveal_path }}/js/reveal.js"></script>
     <script>
       Reveal.initialize({
         controls: true,
@@ -57,13 +57,13 @@
         },
 
         dependencies: [
-          { src: '{{ site.reveal_path }}lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: '{{ site.reveal_path }}plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-          { src: '{{ site.reveal_path }}plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-          { src: '{{ site.reveal_path }}plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-          { src: '{{ site.reveal_path }}plugin/zoom-js/zoom.js', async: true },
-          { src: '{{ site.reveal_path }}plugin/notes/notes.js', async: true },
-          { src: '{{ site.reveal_path }}plugin/math/math.js', async: true }
+          { src: '{{ site.reveal_path }}/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '{{ site.reveal_path }}/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '{{ site.reveal_path }}/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '{{ site.reveal_path }}/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '{{ site.reveal_path }}/plugin/zoom-js/zoom.js', async: true },
+          { src: '{{ site.reveal_path }}/plugin/notes/notes.js', async: true },
+          { src: '{{ site.reveal_path }}/plugin/math/math.js', async: true }
         ]
       });
     </script>
