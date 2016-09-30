@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
   <link rel="icon" type="image/x-icon" href="{{ "/favicon.ico" | prepend: site.baseurl }}">
 
-  <!-- settings for reveal.js -->
   {% if page.categories contains "slides" %}
+    <!-- settings for reveal.js -->
     {% include head_slide.html %}
   {% endif %}
 
