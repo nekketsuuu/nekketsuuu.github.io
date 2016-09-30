@@ -1,0 +1,524 @@
+---
+title: Type-Based Verification of Authenticity in Cryptographic Protocols
+theme: white
+transition: none
+width: 960
+height: 700
+published: false
+---
+
+{{ site.slide.begin }}
+## 暗号プロトコルにおけるAuthenticityの型による検証
+-----------
+2016/07/01
+
+情報科学科4年　石川 拓真
+
+$$
+  % spi計算のsyntax用
+  \DeclareMathOperator{\inl}{\mathbf{inl}}
+  \DeclareMathOperator{\inr}{\mathbf{inr}}
+  \newcommand{\zero}[0]{\mathbf{0}}
+  \DeclareMathOperator{\is}{\, \mathit{is} \,}
+  \DeclareMathOperator{\split}{\mathbf{split}}
+  \DeclareMathOperator{\case}{\mathbf{case}}
+  \DeclareMathOperator{\decrypt}{\mathbf{decrypt}}
+  \DeclareMathOperator{\check}{\mathbf{check}}
+  \DeclareMathOperator{\beginl}{\mathbf{begin}}
+  \DeclareMathOperator{\endl}{\mathbf{end}}
+  \newcommand{\Un}[0]{\mathbf{Un}}
+  \DeclareMathOperator{\Key}{\mathbf{Key}}
+  \DeclareMathOperator{\Ch}{\mathbf{Ch}}
+  \DeclareMathOperator{\Nonce}{\mathbf{Nonce}}
+  % spi計算の例を作る用
+  \newcommand{\System}[0]{\mathit{System}}
+  \newcommand{\key}[0]{\mathit{key}}
+  \newcommand{\Sender}[0]{\mathit{Sender}}
+  \newcommand{\ch}[0]{\mathit{ch}}
+  \newcommand{\Receiver}[0]{\mathit{Receiver}}
+  \newcommand{\msg}[0]{\mathit{msg}}
+  \newcommand{\non}[0]{\mathit{non}}
+  \newcommand{\ctext}[0]{\mathit{ctext}}
+$$
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### Reference
+--------------
+
+* Gordon & Jeffrey, "Authenticity by typing for security protocols" (2003)
+* Kikuchi & Kobayashi, "Type-Based Automated Verification of Authenticity in Cryptographic Protocols" (2009)
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### モチベーション
+-------------
+* 暗号プロトコル
+ * 例: Diffie-Hellman認証
+* プロトコルがセキュアであるか知りたい。
+ * 例: authenticityを満たすか知りたい。
+  * リプレイアタック
+* Authenticity: 送られてきたメッセージが改竄されておらず、かつ差出人から送られてきたということを確認できること。
+* → プロトコルが(ある意味で)authenticityを満たしているか、自動的に知りたい!
+
+Note:
+* リプレイアタック: ユーザーが投げたシーケンスと同じシーケンスをサーバーに投げて認証を奪う。
+* Authenticityの定義にはブレがある。
+* Wikipedia:enによると、authenticityはnon-repudiation(後から署名を否認できないこと)を含まない。
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### アウトライン
+-----------
+spi計算の定義 [Abadi & Gordon, 1999]
+
+↓
+
+「spi計算+型」による
+
+authenticityの保証 [Gordon & Jeffrey, 2003]
+
+↓
+
+spi計算の型付けを自動化 [Kikuchi & Kobayashi, 2009]
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### アウトライン
+-----------
+<span style="text-decoration: underline">**spi計算の定義 [Abadi & Gordon, 1999]**</span>
+
+↓
+
+「spi計算+型」による
+
+authenticityの保証 [Gordon & Jeffrey, 2003]
+
+↓
+
+spi計算の型付けを自動化 [Kikuchi & Kobayashi, 2009]
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### π計算
+--------
+* 並行計算のモデルの1つ
+* 「プロセス」が「チャンネル」を通して通信する。
+* Syntaxの例:
+
+<span style="font-size: 0.8em">
+\begin{alignat}{3}
+  P, Q, R ::= & \, x!v && \quad \mbox{チャンネル$x$に値$v$を送信} \\\\
+  & x?v.P && \quad \mbox{チャンネル$x$から値を$v$に受信して、} \\\\
+  &&& \quad \mbox{$P$を実行} \\\\
+  & P|Q && \quad \mbox{$P$と$Q$を並行実行} \\\\
+  & (\nu x)P && \quad \mbox{チャンネル$x$を束縛して$P$を実行} \\\\
+  & {\ast}P && \quad \mbox{$P$を必要なだけ複製 ($ {\ast}P \equiv P| {\ast}P$)} \\\\
+  &&& \quad \mbox{(repeat $P$だと思ってよい)} \\\\
+  & \zero && \quad \mbox{プロセスの終了}
+\end{alignat}
+</span>
+
+Note:
+* プロセス図のイメージを使って黒板で説明する。
+* チャンネルの束縛は、λ計算における変数の束縛との類推を話す。
+* このπ計算の定義には非決定的分岐が無い。
+* 通信は非同期通信
+* π計算はλ計算を模倣できるのでチューリング完全 [Milner]
+{{ site.slide.end}}
+
+{{ site.slide.begin }}
+#### π計算の項の例
+----------------
+
+<span style="text-decoration: underline">例1</span>
+
+$$
+  x![128] \, | \, (x?[v] . \mathit{result}![v])
+$$
+
+<span style="text-decoration: underline">例2</span>
+
+\begin{align}
+  &(\nu c) \Big( x![c] \\\\
+  &\hphantom{(\nu c) ( }(c?[v] . \mathit{print}![v]) \Big) \\\\
+  &| \, (x?[d] . d![\mbox{“abc”}])
+\end{align}
+
+<span style="font-size: 15px;">cite: http://web.yl.is.s.u-tokyo.ac.jp/kobalab/kadai99/picalc.html</span>
+
+Note:
+* π計算は、チャンネルそのものをやりとりできる!
+ * λ計算はλ項を受け取れるのであった。
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### spi計算のsyntax
+------------------
+$M$はメッセージ、$P$はプロセスを表す
+
+<span style="font-size: 0.8em;">
+\begin{alignat}{3}
+  K, M, N ::= & \, x && \quad \mbox{変数} \\\\
+  & (M_1, M_2) && \quad \mbox{組} \\\\
+  & () && \quad \mbox{空タプル} \\\\
+  & \inl (M) && \quad \mbox{left injection} \\\\
+  & \inr (M) && \quad \mbox{right injection} \\\\
+  & \\{ M \\}_K && \quad \mbox{平文$M$を鍵$K$で暗号化した文}
+\end{alignat}
+</span>
+
+Note:
+* spi計算はπ計算の拡張
+* メッセージとプロセスがある。まずはメッセージから。
+* 直積型、直和型
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+###### spi計算のsyntax (cont.)
+-----------------------------------
+$M$はメッセージ、$P$はプロセスを表す
+
+<span style="font-size: 0.8em;">
+\begin{alignat}{3}
+  P, Q ::= & \, M ! N && \quad \mbox{$M$に$N$を送信}\\\\
+  & M ? (x:T) . P && \quad \mbox{$M$から型$T$の値を$x$に受信し、} \\\\
+  &&& \quad \mbox{$P$を実行} \\\\
+  & P|Q && \quad \mbox{$P$と$Q$を並行実行} \\\\
+  & (\nu x : T)P && \quad \mbox{型$T$のチャンネル$x$を束縛し、}\\\\
+  &&& \quad \mbox{$P$を実行} \\\\
+  & {\ast}P && \quad \mbox{$P$を必要なだけ複製} \\\\
+  & \zero && \quad \mbox{プロセスの終了} \\\\
+  & \mathit{(cont.)} && \\\\
+\end{alignat}
+</span>
+
+Note:
+* 型がついていることとメッセージになっていることを除いてπ計算と一緒
+* 型の詳細は後で
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+###### spi計算のsyntax (cont.)
+-----------------------------------
+$M$はメッセージ、$P$はプロセスを表す
+
+<span style="font-size: 0.8em;">
+\begin{align}
+  P, Q ::= & \mathit{(cont.)} \\\\
+  & \split M \is (x:T, y:U).P \\\\
+  & \quad \mbox{組の分解} \\\\
+  & \case M \is \inl(x).P \  \is \inr(y).Q \\\\
+  & \quad \mbox{パターンマッチ} \\\\
+  & \decrypt M \is \\{x : T\\}_N . P \\\\
+  & \quad \mbox{鍵$N$で暗号文$M$を復号し$x$に代入後、$P$を実行} \\\\
+  & \check M \is N . P \\\\
+  & \quad \mbox{$M$と$N$が同じ名前かチェックし、同じなら$P$を実行} \\\\
+  & \mathit{(cont.)}
+\end{align}
+</span>
+
+Note:
+* 鍵は対称鍵
+* どれも、マッチに失敗したらデッドロックする(0になる)。
+* 直積型、直和型
+* Bool型
+ * true?[(t, f)] . t![()]
+ * false?[(t, f)] . f![()]
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+###### spi計算のsyntax (cont.)
+-----------------------------------
+$M$はメッセージ、$P$はプロセスを表す
+
+<span style="font-size: 0.8em;">
+\begin{alignat}{3}
+  P, Q ::= & \mathit{(cont.)} && \\\\
+  & \beginl M.P && \quad \mbox{$M$でラベル付けされた} \\\\
+  &&& \quad \mbox{イベントを開始} \\\\
+  & \endl M.P && \quad \mbox{$M$でラベル付けされた} \\\\
+  &&& \quad \mbox{イベントを終了}
+\end{alignat}
+</span>
+
+Note:
+* これの説明は後回し?
+* この2つはassertionのためのsyntax
+* 後々の話と整合性を保つためにはcastとmatchも有った方が良いが、とりあえず簡単のために省略。
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### spi計算の項の例(1)
+------------------
+
+<span style="font-size: 0.6em">型は省略しています。</span>
+
+<span style="font-size: 0.8em;">
+\begin{align}
+  \System &= (\nu \key)({\ast}\Sender(\ch,\key) \\\\
+  & \hphantom{= (\nu \key)(} | \, {\ast}\Receiver(\ch, \key)) \\\\
+  \Sender(\ch, \key) &= (\nu \msg) \ch ! \\{ \msg \\}\_\key \\\\
+  \Receiver(\ch, \key) &= \ch ? \ctext. \\\\
+  & \hphantom{= \;} \decrypt \ctext \is \\{ m \\}\_\key
+\end{align}
+</span>
+
+Note:
+* ctextはciphertextの略
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### spi計算の項の例(2)
+------------------
+
+<span style="font-size: 0.6em">型は省略しています。</span>
+
+<span style="font-size: 0.8em;">
+\begin{align}
+  \System &= (\nu \key)({\ast}\Sender(\ch,\key) \\\\
+  & \hphantom{= (\nu \key)(} | \, {\ast}\Receiver(\ch, \key)) \\\\
+  \Sender(\ch, \key) &= (\nu \msg) \beginl \msg \\\\
+  & \hphantom{= (\nu \msg)} \, \ch ! \\{ \msg \\}\_\key \\\\
+  \Receiver(\ch, \key) &= \ch ? \ctext. \\\\
+  & \hphantom{= \;} \decrypt \ctext \is \\{ m \\}\_\key . \\\\
+  & \hphantom{= \;} \endl m
+\end{align}
+</span>
+
+Note:
+* chは、たとえばインターネットみたいなオープンなチャンネルを想定してみている。
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### spi計算の項の例(3)
+------------------
+
+<span style="font-size: 0.6em">型は省略しています。</span>
+
+<span style="font-size: 0.75em;">
+\begin{align}
+  \System &= (\nu \key)({\ast}\Sender(\ch,\key) \\\\
+  & \hphantom{= (\nu \key)(} | \, {\ast}\Receiver(\ch, \key)) \\\\
+  \Sender(\ch, \key) &= \ch ? n. (\nu \msg) \\\\
+  & \hphantom{= (\nu} \beginl \msg.\ch ! \\{ (\msg, n) \\}\_\key \\\\
+  \Receiver(\ch, \key) &= (\nu \non) \\\\
+  & \hphantom{= (\nu} (\ch ! \non \\\\
+  & \hphantom{= (\nu} | \, \ch ? \ctext . \decrypt \ctext \is  \\{ x \\}\_{\key} . \\\\
+  & \hphantom{= (\nu | \,} \split x \is (m, \non'). \\\\
+  & \hphantom{= (\nu | \,} \check \non \is \non' . \\\\
+  & \hphantom{= (\nu | \,} \endl m)
+\end{align}
+</span>
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### アウトライン
+-----------
+spi計算の定義 [Abadi & Gordon, 1999]
+
+↓
+
+<span style="text-decoration: underline">**「spi計算+型」による**</span>
+
+<span style="text-decoration: underline">**authenticityの保証 [Gordon & Jeffrey, 2003]**</span>
+
+↓
+
+spi計算の型付けを自動化 [Kikuchi & Kobayashi, 2009]
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### Authenticityの定義
+----------------------
+
+* 今回はauthenticityを満たすことを、<span style="text-decoration: underline">robustly safeである</span>ことで定義する。
+* **定義(ラフ)**　プロセス$P$が<span style="text-decoration: underline">safe</span>であるとは、プロセスの任意のrun、任意のメッセージ$L$について、存在するどの$\endl L$に対しても別個の$\beginl L$があるときを言う。
+* 例
+ <span style="font-size: 0.8em">
+ * $\beginl L . \endl L$はsafe。
+ * $\beginl L . \endl L . \endl L$はsafeでない。
+ * $\beginl L . \beginl L . \endl L$はsafe。
+ * $\beginl L . \beginl L' . \endl L . \endl L'$はsafe。
+ * $\beginl L \, | \, \endl L$はsafeでない。
+ </span>
+
+Note:
+* runを定義していない
+* この定義はGordon & Jeffreyの方のラフな定義。Appendixに別の、トレースを使った定義が載っているが、Kikuchi & Kobayashiにあるように操作的意味論として定義した方が分かりやすくて良いと思う。
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### Authenticityの定義 (cont.)
+----------------------
+
+* 今回はauthenticityを満たすことを、<span style="text-decoration: underline">robustly safeである</span>ことで定義する。
+* **定義**　プロセス$P$が<span style="text-decoration: underline">assertion-free</span> $\iff$ $P$が$\beginl$も$\endl$も含まない。
+* **定義**　プロセス$P$が<span style="text-decoration: underline">untyped</span> $\iff$ $P$中に表れる型は$\Un$のみ。
+* **定義**　assertion-freeでuntypedなプロセス$O$を<span style="text-decoration: underline">opponent</span>と言う。
+* **定義**　プロセス$P$が<span style="text-decoration: underline">robustly safe</span> $\iff$ 任意のopponent $O$に対して、$P \, | \, O$がsafe。
+
+Note:
+* Unはまだ未定義
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### Robustly safeで無い例
+-------------------------
+
+<span style="font-size: 0.6em">型は省略しています。</span>
+
+<span style="font-size: 0.65em;">
+\begin{align}
+  \System &= (\nu \key)({\ast}\Sender(\ch,\key) \\\\
+  & \hphantom{= (\nu \key)(} | \, {\ast}\Receiver(\ch, \key)) \\\\
+  \Sender(\ch, \key) &= (\nu \msg) \beginl \msg \\\\
+  & \hphantom{= (\nu \msg)} \, \ch ! \\{ \msg \\}\_\key \\\\
+  \Receiver(\ch, \key) &= \ch ? \ctext. \\\\
+  & \hphantom{= \;} \decrypt \ctext \is \\{ m \\}\_\key . \\\\
+  & \hphantom{= \;} \endl m \\\\
+  &\\\\
+  \mathit{Opponent} (\ch) &= \ch ? \ctext. \\\\
+  & \hphantom{= \;} \ch ! \ctext. \\\\
+  & \hphantom{= \;} \ch ! \ctext
+\end{align}
+</span>
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### Gordon & Jeffreyの型システム: Untrusted type
+-----------------------------------------------
+* 型が付いたものしか受け付けないのだと、攻撃者(Opponent)の仕様を制限してしまうことになる。
+* そこで「まだ型がついていない」型、$\Un$を用意する。
+* 例
+ * $M : \Un$かつ$N : \Un$ならば$(M, N) : \Un$
+ * (型の付く)暗号文$\\{ M \\}\_N$の型は$\Un$
+
+* **定義**(復習)　プロセス$P$が<span style="text-decoration: underline">untyped</span> $\iff$ $P$中に表れる型は$\Un$のみ。
+
+Note:
+* ここで「型の付く」暗号文と言ったのは、たとえばM : T, N : Key(U)だと暗号文はill-typedなため。
+{{ site.slide.end}}
+
+{{ site.slide.begin }}
+#### Gordon & Jeffreyの型システム: Effect
+---------------------------------------
+* 各イベントの開始・終了を管理するために、effectシステムを導入する。
+* effectとは、$\endl L$たち(など)のマルチセット $[e_1, \cdots, e_n]$
+ <span style="font-size: 0.8em">
+ * $P : \mathit{es}$のとき、$\beginl L.P : \mathit{es} - \endl L$
+ * $P : \mathit{es}$のとき、$\endl L.P : \mathit{es} + \endl L$
+ * $P : \mathit{es}_1$かつ$Q : \mathit{es}_2$のとき、$ P | Q : \mathit{es}_1 + \mathit{es}_2$
+ </span>
+* 「$P$がsafeである」ことを、$P : []$で表現できる。
+ <span style="font-size: 0.8em">
+ * $\beginl L . \endl L . \endl L : [\endl L]$
+ * $\beginl L . \beginl L . \endl L : []$
+ * $\beginl L . \beginl L' . \endl L . \endl L' : []$
+ * $\beginl L \, | \, \endl L : [\endl L]$
+ </span>
+
+Note:
+* マルチセットが分かりにくかったら、連想配列と考えてもよい。
+{{ site.slide.end}}
+
+{{ site.slide.begin }}
+#### Gordon & Jeffreyの型システム: 全容
+-------------------------------
+$T$は型、$\mathit{es}$はeffectを表す
+
+<span style="font-size: 0.85em">
+\begin{alignat}{3}
+  T, U ::= & \Un && \quad \mbox{Untrusted型} \\\\
+  & \Key(T) && \quad \mbox{共通鍵型} \\\\
+  & \Ch(T) && \quad \mbox{チャンネル型} \\\\
+  & \Nonce(\mathit{es}) && \quad \mbox{ノンス型} \\\\
+  & () && \quad \mbox{空タプル型} \\\\
+  & (x:T, U) && \quad \mbox{依存ペア型} \\\\
+  & T + U && \quad \mbox{ヴァリアント型} \\\\
+  & \zero && \quad \mbox{Empty型}
+\end{alignat}
+</span>
+
+Note:
+* 依存ペア型 : 型Uがxに依存しているペア型。xによらずUが定数ならば、単なるペア型T×Uと一緒。
+* 依存ペア型はノンスのために必要。
+* Kikuchi & Kobayashiの方では、Un、チャンネル型、ノンス型がまとまって「名前型」になっている。
+* Empty型は技術的な理由で入っている(構文糖衣を綺麗に書くため)。この型のメッセージは存在しない。
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### Gordon & Jeffreyの型システム: 全容 (cont.)
+-------------------------------
+$T$は型、$\mathit{es}$はeffectを表す
+
+<span style="font-size: 0.85em">
+\begin{alignat}{3}
+  e ::= &&& \quad \mbox{atomic effect} \\\\
+  & \endl L && \quad \mbox{$L$でラベル付けされた} \\\\
+  &&& \quad \mbox{イベントの終了} \\\\
+  & \check N && \quad \mbox{ノンス$N$のチェック} \\\\
+  \mathit{es} ::= & [e_1, \cdots, e_n] && \quad \mbox{atomic effectのマルチセット}
+\end{alignat}
+</span>
+
+Note:
+* effectはマルチセットじゃなくて連想配列と思っても良い。
+* check Nがatomic effectに入っている。これと対応するのはcast N。だが今回は簡単のためsyntaxとして紹介しなかった。本来は入れる必要がある。プロセスが並行に動いている場合でもNonceのチェックが型としてちゃんとできることを保証するための機構。
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### 型の付き方の例
+-----------------
+<span style="font-size: 0.6em;">
+\begin{align}
+  \System &= (\nu \key)({\ast}\Sender(\ch,\key) \\\\
+  & \hphantom{= (\nu \key)(} | \, {\ast}\Receiver(\ch, \key)) \\\\
+  \Sender(\ch, \key) &= \ch ? n. (\nu \msg) \\\\
+  & \hphantom{= (\nu} \beginl \msg.\ch ! \\{ (\msg, n) \\}\_\key \\\\
+  \Receiver(\ch, \key) &= (\nu \non) \\\\
+  & \hphantom{= (\nu} (\ch ! \non \\\\
+  & \hphantom{= (\nu} | \, \ch ? \ctext . \decrypt \ctext \is  \\{ x \\}\_{\key} . \\\\
+  & \hphantom{= (\nu | \,} \split x \is (m, \non'). \\\\
+  & \hphantom{= (\nu | \,} \check \non \is \non' . \\\\
+  & \hphantom{= (\nu | \,} \endl m)
+\end{align}
+</span>
+
+<span style="font-size: 0.8em">
+\begin{align}
+  \ch &: \Un \\\\
+  x &: \Un \times \Nonce([\endl \msg]) \\\\
+  \key &: \Key(\Un \times \Nonce([\endl \msg]))
+\end{align}
+</span>
+
+Note:
+* Gordon & Jeffreyに忠実に従うと、このままだとcastが無いので間違いだが、後でやる型推論有りの方だとこれで良いのでこのままにする。
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### 型によるRobustly safety
+--------------------------
+* Gordon & Jeffreyの型システムにおいて、以下が成り立つ。
+* <p>$\mathit{fn}(P) \subseteq \\{ x_1, \cdots, x_n \\}$かつ</p><p>$x_1 : \Un, \cdots, x_n : \Un \vdash P : []$のとき、</p><p>$P$はrobustly safe。</p>
+
+Note:
+* fnは未定義(free names)
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### まとめ
+-------------------------------
+<span style="font-size: 0.7em">
+* spi計算はπ計算を拡張したもの
+ * 通信用のsyntaxと利便性のためのsyntaxに加え、暗号化、復号、チェック、assertが追加されている。
+ * Gordon & Jeffreyのものだと、各「名前」に型アノテーションが付いている。
+* spi計算の型システムは、よくあるもの + 名前のための型 + Untrusted型 + effect。
+* Authenticityを満たすことを、robustly safeであることと定義。
+</span>
+
+<span style="font-size: 0.7em">
+* 次回以降、この型付けを自動的にするための仕組みを説明します。
+</span>
+{{ site.slide.end }}

@@ -1,0 +1,286 @@
+---
+title: Type-Based Verification of Authenticity in Cryptographic Protocols
+theme: white
+transition: none
+width: 800
+height: 600
+font-size: 32px
+imgpath: /assets/slides/2016-07-08-authenticity-by-types-2/
+published: false
+---
+
+{{ site.slide.begin }}
+## 暗号プロトコルにおけるAuthenticityの型による検証
+-----------
+2016/07/08
+
+情報科学科4年　石川 拓真
+
+$$
+  % Spi計算のsyntax用
+  \DeclareMathOperator{\inl}{\mathbf{inl}}
+  \DeclareMathOperator{\inr}{\mathbf{inr}}
+  \newcommand{\zero}[0]{\mathbf{0}}
+  \DeclareMathOperator{\is}{\, \mathit{is} \,}
+  \DeclareMathOperator{\split}{\mathbf{split}}
+  \DeclareMathOperator{\case}{\mathbf{case}}
+  \DeclareMathOperator{\decrypt}{\mathbf{decrypt}}
+  \DeclareMathOperator{\check}{\mathbf{check}}
+  \DeclareMathOperator{\beginl}{\mathbf{begin}}
+  \DeclareMathOperator{\endl}{\mathbf{end}}
+  \newcommand{\Un}[0]{\mathbf{Un}}
+  \DeclareMathOperator{\Name}{\mathbf{N}}
+  \DeclareMathOperator{\Key}{\mathbf{Key}}
+  \DeclareMathOperator{\chk}{\mathbf{chk}}
+  % Spi計算の型付け規則用
+  \DeclareMathOperator{\pub}{\mathbf{pub}}
+  \DeclareMathOperator{\gen}{\mathbf{gen}}
+  % Spi計算の例を作る用
+  \newcommand{\System}[0]{\mathit{System}}
+  \newcommand{\key}[0]{\mathit{key}}
+  \newcommand{\Sender}[0]{\mathit{Sender}}
+  \newcommand{\ch}[0]{\mathit{ch}}
+  \newcommand{\Receiver}[0]{\mathit{Receiver}}
+  \newcommand{\msg}[0]{\mathit{msg}}
+  \newcommand{\non}[0]{\mathit{non}}
+  \newcommand{\ctext}[0]{\mathit{ctext}}
+$$
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### アウトライン
+-----------
+Spi計算の定義 [Abadi & Gordon, 1999]
+
+↓
+
+「Spi計算+型」による
+
+authenticityの保証 [Gordon & Jeffrey, 2003]
+
+↓
+
+Spi計算の型付けを自動化
+
+[Kikuchi & Kobayashi, 2009]
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### アウトライン
+-----------
+Spi計算の定義 [Abadi & Gordon, 1999]
+
+↓
+
+<span style="text-decoration: underline">**「Spi計算+型」による**</span>
+
+<span style="text-decoration: underline">**authenticityの保証 [Gordon & Jeffrey, 2003]**</span>
+
+↓
+
+<span style="text-decoration: underline">**Spi計算の型付けを自動化**</span>
+
+<span style="text-decoration: underline">**[Kikuchi & Kobayashi, 2009]**</span>
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### 本日の内容
+--------------
+* 前回の復習(Spi計算のsyntax、型とeffect)
+* 型 & effectシステムの推論規則
+* 型システムの健全性(前回と同じ)
+
+(次回: 型推論アルゴリズムの構成)
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### Spi計算の復習
+-----------------
+<span style="font-size: 0.7em;">$M$はメッセージ、$P$はプロセスを表す。</span>
+
+<span style="font-size: 0.7em;">
+\begin{align}
+  K, M, N &::= x \\>|\\> (M, N) \\>|\\> \inl(M) \\>|\\> \inr(M) \\>|\\> \\{M\\}\_K \\\\
+  P, Q &::= \zero \\>|\\> M!N \\>|\\> M?x.P \\>|\\> (P|Q) \\>|\\> {\ast}P \\>|\\> (\nu x) P \\\\
+  & \hphantom{::=} |\\> \check x \is M.P \\>|\\> \decrypt M \is \\{x\\}\_K . P \\\\
+  & \hphantom{::=} |\\> \case M \is \inl(x).P \is \inr(y).Q \\>|\\> \split M \is (x, y).P \\\\
+  & \hphantom{::=} |\\> \beginl M.P \\>|\\> \endl M.P
+\end{align}
+</span>
+
+Note:
+* 細かいことを言うと、前回のものと比べ型アノテーションが無くなっている(それはそう)
+* あと、castが必要なくなっている
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### Spi計算の項の例
+------------------
+<span style="font-size: 0.7em;">
+\begin{align}
+  \System &= (\nu \key)({\ast}\Sender(\ch,\key) \\\\
+  & \hphantom{= (\nu \key)(} | \, {\ast}\Receiver(\ch, \key)) \\\\
+  \Sender(\ch, \key) &= \ch ? n. (\nu \msg) \\\\
+  & \hphantom{= (\nu} \beginl \msg.\ch ! \\{ (\msg, n) \\}\_\key \\\\
+  \Receiver(\ch, \key) &= (\nu \non) \\\\
+  & \hphantom{= (\nu} (\ch ! \non \\\\
+  & \hphantom{= (\nu} | \, \ch ? \ctext . \decrypt \ctext \is  \\{ x \\}\_{\key} . \\\\
+  & \hphantom{= (\nu | \,} \split x \is (m, \non'). \\\\
+  & \hphantom{= (\nu | \,} \check \non \is \non' . \\\\
+  & \hphantom{= (\nu | \,} \endl m)
+\end{align}
+</span>
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### Authenticityの定式化
+------------------------
+* 今回はプロセス$P$がAuthenticityを満たすことをrobustly safeであることと定義。
+* **定義(ラフ)**　プロセス$P$が<span style="text-decoration: underline">safe</span> $\iff$ プロセスの任意のrunにある任意の$\endl L$に対して、別個に対応する$\beginl L$が存在する。
+* **定義**　プロセス$P$が<span style="text-decoration: underline">robustly safe</span> $\iff$ assertion($\beginl$, $\endl$, $\check$)を含まない任意のプロセス$O$に対して、プロセス$P|O$がsafe
+
+Note:
+* 前回の修正: untypedの仮定を外しました。最終的にはuntypedであることは条件を狭めていないが、定義に含めるのはおかしいということにした。
+* Gordon & Jeffreyの定義と違いopponentがcheckを実行できないようになっているが、これはsafetyの意味では表現力を損ねていない。check M is N.Pは、y∉FN(P)を使ってdecrypt {x}\_M is {y}\_N.Pでシミュレートできる。型は結局Unをつけるから問題なくなる。
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### 方針
+* メッセージに型をつけ、
+* プロセスにeffectをつけ、
+* 型 & effectシステムでプロセスのrobust safetyを示す。
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### Kikuchi & Kobayashi の型とeffect
+------------------------------------
+<span style="font-size: 0.8em;">
+\begin{alignat}{3}
+  \mbox{型} \quad && T &::= \Name(e) \\>|\\> \Key(T) \\>|\\> T\_1 \times T\_2 \\>|\\> T\_1 + T\_2 \\\\
+  \mbox{effects} \quad && e &::= [A\_1 \mapsto r\_1, \cdots, A\_n \mapsto r\_n] \quad (r\_i \in \mathbb{Q}\_{\geq 0})\\\\
+  \mbox{atomic effects} \quad && A &::= \endl\langle M \rangle \\>|\\> \chk\langle\alpha\rangle \\\\
+  \mbox{extended names} \quad && \alpha &::= x \\>|\\> i \\\\
+  \mbox{インデックス} \quad && i &::= 0 \\>|\\> 1 \\>|\\> 2 \\>|\\> \cdots \\\\
+\end{alignat}
+</span>
+
+* 構文糖衣: $\Un \equiv \Name([ \  ])$
+* $\Name(e)$は「名前」を表す。前回出てきたチャンネル型、ノンス型はこれになっている。
+* effectは連想配列。前回のマルチセットとしての表現を拡張している。
+
+Note:
+* N(e)はName
+* 2分の1のcapabilityがあるとは、2つあわさるとはじめてcapableになるという意味
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### 本日の内容
+----------------
+* 前回の復習(Spi計算のsyntax、型とeffect)
+* <span style="style-decoration: underline">**型 & effectシステムの推論規則**</span>
+* 型システムの健全性(前回と同じ)
+
+<span style="font-size: 0.8em">ここからの内容</span>
+* <span style="font-size: 0.8em">前回具体的には述べなかった型付け規則の詳細を定義します。</span>
+ * <span style="font-size: 0.8em">ただしGorden & Jeffreyのものとは細かい点が異なります。</span>
+* <span style="font-size: 0.8em">型推論をみこした規則になっています。</span>
+ * <span style="font-size: 0.8em">型推論できると、型アノテーションを書かなくて良いので便利です。</span>
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### メッセージに対する型付け規則
+---------------------------
+
+![メッセージに対する型付け規則]({{ site.baseurl }}{{ page.imgpath }}type.png)
+
+<span style="font-size: 0.6em;">ただし$T+e$は、$T$が$N(e')$のとき$N(e'+e)$、そうでないとき$T$。</span>
+
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### プロセスに対する型付け規則(1/3)
+--------------------------
+<span style="font-size: 0.6em;">方針: (下から読むと)effectを伝搬し、$\endl$や$\check$で解決する</span>
+
+<img src="{{ site.baseurl }}{{ page.imgpath }}effect_1.png" alt="プロセスに対する型付け規則1" class="img-small80">
+
+<span style="font-size: 0.6em;">ただし$\pub(T)$とは、型$T$であって、$T$に含まれるeffectが全て空 $[\ ]$であることを示す。
+直感的には、チャンネルに流して大丈夫なデータという意味。</span>
+
+Note:
+* FN(e)は∪{FN(A) | e(A) > 0}。つまりeで言及されているatomic effectの自由変数たちの集合。
+* T-REP: たとえばプロセスPにend Lが含まれているとPの複製は無限個のend Lを含みそう。それはしたくないので、空のeffectを持ったPについての複製しかwell-typedで無いように制限する。
+* pub(T)について: 前回注意したように、暗号文には型Unがつくので、pub(T)はeffectを運べないという意味ではない。
+* 実はOUTの方にはpub(T)は要らない。INの方には「外からやってきたよく分からないメッセージから来たcapabilityを信じられない」という意味でpub(T)が必要。ここらへんは、この次の論文である、非対称鍵まで扱えるようにしたやつを読むと良い。
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### プロセスに対する型付け規則(2/3)
+--------------------------
+<img src="{{ site.baseurl }}{{ page.imgpath }}effect_2.png" alt="プロセスに対する型付け規則2" class="img-small80">
+
+<span style="font-size: 0.55em">ただし $\gen(T) \iff T \mbox{ is } \Key(T') \mbox{ or } \Name([\ ])$ : ノンスなどの新しい名前が無闇に生成されるのを防ぐ。</span>
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### プロセスに対する型付け規則(3/3)
+--------------------------
+![プロセスに対する型付け規則3]({{ site.baseurl }}{{ page.imgpath }}effect_3.png)
+
+<span style="font-size: 0.6em">ただし $e' \leq e \iff \forall A. e'(A) \leq e(A)$</span>
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### 具体例
+-----------
+<span style="font-size: 0.7em;">
+\begin{align}
+  \System &= (\nu \key)({\ast}\Sender(\ch,\key) \\\\
+  & \hphantom{= (\nu \key)(} | \, {\ast}\Receiver(\ch, \key)) \\\\
+  \Sender(\ch, \key) &= \ch ? n. (\nu \msg) \\\\
+  & \hphantom{= (\nu} \beginl \msg.\ch ! \\{ (\msg, n) \\}\_\key \\\\
+  \Receiver(\ch, \key) &= (\nu \non) \\\\
+  & \hphantom{= (\nu} (\ch ! \non \\\\
+  & \hphantom{= (\nu} | \, \ch ? \ctext . \decrypt \ctext \is  \\{ x \\}\_{\key} . \\\\
+  & \hphantom{= (\nu | \,} \split x \is (m, \non'). \\\\
+  & \hphantom{= (\nu | \,} \check \non \is \non' . \\\\
+  & \hphantom{= (\nu | \,} \endl m)
+\end{align}
+</span>
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### 型によるRobustly safety
+--------------------------
+* Kikuchi & Kobayashiの型システムにおいて、以下が成り立つ。
+* <p>$\mathrm{FN}(P) \subseteq \\{ x_1, \cdots, x_n \\}$かつ</p><p>$x_1 : \Un, \cdots, x_n : \Un; [\ ] \vdash P$のとき、</p><p>$P$はrobustly safe。</p>
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### Reference
+--------------
+
+* Gordon & Jeffrey, "Authenticity by typing for security protocols" (2003)
+* Kikuchi & Kobayashi, "Type-Based Automated Verification of Authenticity in Cryptographic Protocols" (2009)
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### Safety定義のための操作的意味論
+-------------------------------
+
+![操作的意味論]({{ site.baseurl }}{{ page.imgpath }}operational_semantics.png)
+
+$\langle \Phi, E, N \rangle \longrightarrow \mathbf{Error} \iff \endl L.P \in \Phi \wedge L \not \in E$
+
+$P$ is safe $\iff$ $\langle \\{ P \\}, \emptyset, \mathrm{FN}(P) \rangle \not \longrightarrow^{\ast} \mathbf{Error}$
+
+Note:
+* split、case、replicationが省略されている
+{{ site.slide.end }}
+
+{{ site.slide.begin }}
+#### $\pub(T)$のformalな定義
+---------------------------
+
+![Pub(T)の定義]({{ site.baseurl }}{{ page.imgpath }}pub.png)
+{{ site.slide.end }}
