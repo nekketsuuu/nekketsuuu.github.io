@@ -3,3 +3,20 @@ img {
     max-height: 100% !important;
     border: 0px !important;
 }
+
+.img-small90 {
+    max-width: 90% !important;
+    max-height: 90% !important;
+}
+.img-small80 {
+    max-width: 80% !important;
+    max-height: 80% !important;
+}
+.img-small70 {
+    max-width: 70% !important;
+    max-height: 70% !important;
+}
+.img-small60 {
+    max-width: 60% !important;
+    max-height: 60% !important;
+}

@@ -23,9 +23,13 @@ defaults:
     values:
       layout: "slide"
 
-# For writing markdown for slide easily
+# For writing markdown of slide easily
 slide:
-  begin: '<section data-markdown><script type="text/template">'
+  begin:   '<section data-markdown><script type="text/template">'
+  begin90: '<section style="font-size: 0.9em;" data-markdown><script type="text/template">'
+  begin80: '<section style="font-size: 0.8em;" data-markdown><script type="text/template">'
+  begin70: '<section style="font-size: 0.7em;" data-markdown><script type="text/template">'
+  begin60: '<section style="font-size: 0.6em;" data-markdown><script type="text/template">'
   end: '</script></section>'
 
 # Build settings
