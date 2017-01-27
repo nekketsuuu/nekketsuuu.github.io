@@ -61,7 +61,7 @@ $ latexdiff-vc -e utf8 --git --flatten --force -d diff -r HEAD test.tex test.bbl
 
 `test.tex`の中で`include`などをしていても引数は`test.tex`のみで大丈夫です。勝手に判断してくれます。
 
-また、`.gitconfig`に次のように記述すると`git ldiff`でdiffのPDFが作れるようになります。`git diff HEAD~1`みたいにも使えます。
+また、`.gitconfig`に次のように記述すると`git ldiff`でdiffのPDFが作れるようになります。`git ldiff HEAD~1`みたいにも使えます。
 
 ```
 [alias]
