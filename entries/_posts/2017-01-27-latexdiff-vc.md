@@ -2,6 +2,7 @@
 title: Gitで管理しているLaTeXのdiffをpdfで見る(TeXLive2015版)
 imgpath: /assets/entries/2017-01-27-latexdiff-vc/
 published: true
+last-modified: 2017-01-28
 ---
 
 ## 結論: latexdiff-vcを使う。
@@ -46,22 +47,22 @@ Gitなどのバージョン管理システムで管理されたLaTeXファイル
 
 ## 結論(再掲)
 
+まず`./diff/`ディレクトリを作ります。
+自分用にスタイルファイルやクラスファイルを作っている場合は`./diff/`の中にも用意する必要があります。
+たとえば`./mystyle.sty`は`./diff/test.tex`からでは読めないので、`cd diff && ln -s ../mystyle.sty`などとシンボリックリンクを貼ってあげるなどすると良いと思います。
+
+その上で元のディレクトリに戻って、このコマンドを実行してください。大元のファイル名は`test.tex`だとしていますが、ここは適宜変更する必要があります。
+
 ```
 $ latexdiff-vc -e utf8 --git --flatten --force -d diff -r HEAD test.tex test.bbl
 ```
 
 これで「今あるファイル」と「直前にコミットしたファイル(HEAD)」のdiffが`./diff/test.tex`に出力されます。あとはこれをコンパイルすればPDFになります。
 
-ただし大元のファイル名は`test.tex`だとしています。
-`latexmk`を使っている場合、`.bbl`ファイルの名前は勝手に決まるはずです。
-
 `test.tex`の中で`include`などをしていても引数は`test.tex`のみで大丈夫です。勝手に判断してくれます。
 
-このコマンドは`diff`ディレクトリの中に結果を出します。
-元々`diff`というディレクトリがある場合は注意してください。
-
-自分用にスタイルファイルやクラスファイルを作っている場合、それらを読み込ませてあげる必要があります。
-たとえば`./mystyle.sty`は`./diff/test.tex`からでは読めないので、`cd diff && ln -s ../mystyle.sty`などとシンボリックリンクを貼ってあげるなどすると良いと思います。
+このコマンドは`./diff/`ディレクトリの中に結果を出します。
+あとは`./diff/`の中で`latexmk`などお好みの方法でコンパイルすればPDFができます。
 
 また、`.gitconfig`に次のように記述すると`git ldiff`でdiffのPDFが作れるようになります。`git diff HEAD~1`みたいにも使えます。
 
@@ -110,6 +111,7 @@ $ latexdiff-vc -e utf8 --git --flatten --force -d diff -r HEAD test.tex test.bbl
 
 * どのコミットか示すために[Gitのタグ](https://git-scm.com/book/ja/Git-%E3%81%AE%E5%9F%BA%E6%9C%AC-%E3%82%BF%E3%82%B0)も使えるので、たとえば先生に提出する度にタグを付けておくと、提出の間に何回コミットしても大丈夫なので便利。
 * rev2のオプションも指定することで、2つのコミット間のdiffもとれます。
+* 数式周りでたまに変な挙動をするらしいですが、そのときは`latexdiff`の`--math-markup`オプションを使うと良いようです。
 
 ## 参考
 
