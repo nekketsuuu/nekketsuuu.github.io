@@ -57,12 +57,9 @@ Gitなどのバージョン管理システムで管理されたLaTeXファイル
 $ latexdiff-vc -e utf8 --git --flatten --force -d diff -r HEAD test.tex test.bbl
 ```
 
-これで「今あるファイル」と「直前にコミットしたファイル(HEAD)」のdiffが`./diff/test.tex`に出力されます。あとはこれをコンパイルすればPDFになります。
+これで「今あるファイル」と「直前にコミットしたファイル(HEAD)」のdiffが`./diff/test.tex`に出力されます。あとはこれを`latexmk`なりなんなりでコンパイルすればPDFになります。
 
 `test.tex`の中で`include`などをしていても引数は`test.tex`のみで大丈夫です。勝手に判断してくれます。
-
-このコマンドは`./diff/`ディレクトリの中に結果を出します。
-あとは`./diff/`の中で`latexmk`などお好みの方法でコンパイルすればPDFができます。
 
 また、`.gitconfig`に次のように記述すると`git ldiff`でdiffのPDFが作れるようになります。`git diff HEAD~1`みたいにも使えます。
 
