@@ -4,7 +4,9 @@ imgpath: /assets/entries/2017-01-27-latexdiff-vc/
 published: true
 ---
 
-## 結論
+## 結論: latexdiff-vcを使う。
+
+<!--more-->
 
 ```
 $ latexdiff-vc -e utf8 --git --flatten --force -d diff -r HEAD test.tex test.bbl

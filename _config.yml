@@ -10,6 +10,7 @@ reveal_path: /reveal.js/
 url: "https://nekketsuuu.github.io"
 twitter_username: nekketsuuu
 github_username:  nekketsuuu
+excerpt_separator: <!--more-->
 
 defaults:
   -
