@@ -1,6 +1,7 @@
 ---
 title: Gitで管理しているLaTeXのdiffをpdfで見る(TeXLive2015版)
 imgpath: /assets/entries/2017-01-27-latexdiff-vc/
+issue: 1
 published: true
 last-modified: 2017-01-28
 ---

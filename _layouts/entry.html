@@ -12,4 +12,5 @@ layout: default
     {{ content }}
   </div>
 
+  {% if page.issue %}<hr /><div id="entry-comment"><h2>コメント</h2><p><a href="https://github.com/nekketsuuu/nekketsuuu.github.io/issues/{{ page.issue }}">このページへのコメントはこちらまで</a> (GitHub Issueに飛びます）</p></div>{% endif %}
 </article>
