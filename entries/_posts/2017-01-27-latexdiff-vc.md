@@ -6,7 +6,7 @@ published: true
 last-modified: 2017-01-28
 ---
 
-## 結論: latexdiff-vcを使う。
+## 結論: latexdiff-vcを使う
 
 <!--more-->
 
@@ -103,7 +103,7 @@ $ latexdiff-vc -e utf8 --git --flatten --force -d diff -r HEAD test.tex test.bbl
 * `-d diff`: diffという名前のディレクトリの中に結果を出力します。これが無いとその場に結果を出力してしまい、`latexmk`しにくいです。
 * `-r HEAD`: どのコミットと比較するか指定します。ここでは例として`HEAD`にしていますが、`HEAD~1`などにもできます。`.gitconfig`版ではここをオプション引数にしており、`git ldiff HEAD~2`などとすることで自由に選ぶことができます。
 
-また、Gitのエイリアスに書いてあるびっくりマークは引数を処理するためのものです。[詳しくはこちら](https://git.wiki.kernel.org/index.php/Aliases#Advanced_aliases_with_arguments)。最後のハイフン(ダッシュ)は`sh`の引数で、引数を通常通り`$1`から始めさせるためにつけます。詳しくは`sh`のmanページの`-c`オプションの所に書いてあります。
+また、Gitのエイリアスに書いてあるびっくりマークは引数を処理するためのものです。[詳しくはこちら](https://git.wiki.kernel.org/index.php/Aliases#Advanced_aliases_with_arguments)。最後のハイフン(ダッシュ)は`sh`の引数であり、実行されるコマンドの引数を示す変数を通常通り`$1`から始めさせるためにつけます。詳しくは`sh`のmanページの`-c`オプションの所に書いてあります。
 
 ## 応用
 
