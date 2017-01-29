@@ -3,7 +3,7 @@ title: Gitで管理しているLaTeXのdiffをpdfで見る(TeXLive2015版)
 imgpath: /assets/entries/2017-01-27-latexdiff-vc/
 issue: 1
 published: true
-last-modified: 2017-01-28
+last-modified: 2017-01-29
 ---
 
 ## 結論: latexdiff-vcを使う
@@ -18,6 +18,8 @@ $ latexdiff-vc -e utf8 --git --flatten --force -d diff -r HEAD test.tex test.bbl
 [alias]
 	ldiff = !sh -c 'latexdiff-vc -e utf8 --git --flatten --force -d diff -r "${1:-HEAD}" test.tex test.bbl && cd diff && latexmk' -
 ```
+
+
 
 ## 仮定
 
@@ -35,13 +37,13 @@ TeXLive2015(以上)を使います。古いと`latexdiff-vc`が入っていな�
 
 ![diffの画像]({{ site.baseurl }}{{ page.imgpath }}diff.png)
 
-Gitなどのバージョン管理システムで管理されたLaTeXファイルのdiffを良い感じにPDFで出力できます。
+Gitなどのバージョン管理システムで管理されたLaTeXファイルの差分を良い感じにPDFで出力できます。
 
-現在この方法をググるとややこしいのが色々出てきますが、`latexdiff-vc`というのが便利になってたので以下ではそれについて書きます。
+2017年1月現在この方法をググるとややこしいスクリプトが色々出てきますが、`latexdiff-vc`というのが便利になってたので以下ではそれについて書きます。
 
 ## 前準備
 
-* Bib(La)TeXを使っている方は、`.bbl`ファイルもコミットしてください。
+* Bib(La)TeXを使っている方は、 **`.bbl`ファイルもコミットしてください。**
   * <div class="small80">.bblファイルは文献情報の入った.bibファイルやスタイルを示す.bstファイルを元に自動生成される(La)TeXファイルです。latexdiffが上手くdiffをとるにはこれを生成した状態でなければならず、さらにコミット間のdiffをとるにはこれがコミットされていないといけません。man latexdiff-vc にも.bblファイルはコミットした方が良いと書いてあります。</div>
 * 日本語がメインのファイルを管理している場合、「latexdiff 日本語」などでググって適切な前処理をしてください。単語境界の設定と、`-t CFONT`による見栄えの調整が必要かもしれません。また、`tlmgr update`などで壊れるかもしれないので注意してください。
 * 各ファイルはUTF-8でエンコーディングされているとします。違う場合はオプション引数を変えて下さい。ファイルのエンコーディングは`nkf --guess <file>`などで分かります。
@@ -69,7 +71,7 @@ $ latexdiff-vc -e utf8 --git --flatten --force -d diff -r HEAD test.tex test.bbl
         ldiff = !sh -c 'latexdiff-vc -e utf8 --git --flatten --force -d diff -r "${1:-HEAD}" test.tex test.bbl && cd diff && latexmk' -
 ```
 
-ただしこのコマンドはレポジトリ依存なので、`~/.gitconfig`や`.git/config`に書くのではなく、レポジトリの中に`.gitconfig`ファイルを作り、`git config --local include.path ../.gitconfig`することでローカルの`.gitconfig`も認識してもらうようにするのが良いでしょう。
+ただしこのコマンドはレポジトリ依存なので、`~/.gitconfig`に書くのではなく、レポジトリの中に`.gitconfig`ファイルを作り、`git config --local include.path ../.gitconfig`することでローカルの`.gitconfig`も認識してもらうようにするのが良いでしょう。
 
 また、このコマンドは`latexmk`でコンパイルすることを前提としています。
 違う方は書き換えて使ってください。
@@ -99,7 +101,7 @@ $ latexdiff-vc -e utf8 --git --flatten --force -d diff -r HEAD test.tex test.bbl
 * `-e utf8`: エンコーディングです。実はデフォルトがUTF-8なので無くてもいいです。これが唯一`latexdiff`に渡されるオプションです。
 * `--git`: Gitで管理されていることを示します。これがない場合勝手に推論してくれるので実は無くてもいいです。
 * `--flatten`: `\include`や`\input`しているものを全部展開して1ファイルとして扱うためのオプションです。これは`latexdiff-vc`のオプションです。順番を間違えると`latexdiff`のオプションだと解釈されるときがあるので注意。
-* `--force`: diffのために作る`.tex`ファイルなどの上書きを強制します。
+* `--force`: 最終的にできる差分ファイルの上書きを強制します。
 * `-d diff`: diffという名前のディレクトリの中に結果を出力します。これが無いとその場に結果を出力してしまい、`latexmk`しにくいです。
 * `-r HEAD`: どのコミットと比較するか指定します。ここでは例として`HEAD`にしていますが、`HEAD~1`などにもできます。`.gitconfig`版ではここをオプション引数にしており、`git ldiff HEAD~2`などとすることで自由に選ぶことができます。
 
