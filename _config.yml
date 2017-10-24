@@ -38,6 +38,7 @@ markdown: kramdown
 kramdown:
   input: GFM
   hard_wrap: false
+highlighter: rouge
 plugins:
   - jekyll-feed
   - jekyll-sitemap
