@@ -105,12 +105,12 @@ datatype 'a tree = Node of 'a * 'a tree list;
 (* dfs : ('a -> bool) -> 'a tree -> 'a option *)
 fun dfs p (t : 'a tree) =
   let
-    exception Ok of 'a;
-    fun auxdfs (Node(n, children)) =
-      if p n then raise (Ok n)
+    exception Return of 'a;
+    fun auxdfs (Node(value, children)) =
+      if p value then raise (Return value)
       else foldl (fn (t, _) => auxdfs t) NONE children;
   in
-    auxdfs t handle Ok n => SOME n
+    auxdfs t handle Return value => SOME value
 end;
 ```
 
