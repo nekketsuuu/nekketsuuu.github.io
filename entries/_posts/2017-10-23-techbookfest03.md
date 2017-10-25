@@ -2,7 +2,7 @@
 title: 技術書典3で買ったもの
 issue: 2
 published: true
-last-modified: 2017-10-24
+last-modified: 2017-10-25
 ---
 
 2017年10月22日(日)に秋葉原で開催された[技術書典3][1]というイベントに一般参加しました。買ったものの感想をメモっておきたいと思います。
@@ -46,7 +46,7 @@ last-modified: 2017-10-24
 
 > 一見面白みのないよくある DSL 用の *embedded/projection* ペアと呼ばれるコンビネータを組み上げて少しずつ拡張していくと、意外な機能拡張ができたり、高速化ができたり、SML では実行不可能な関数が評価できてしまったりします。
 
-ところでこの本を読んでいて、OCaml で `exception E of 'a` や `exception E of _` と書いて例外を多相にしようとしてもエラーになることに気づきました。素直な polymorphic exception を許すと、例外をデコンストラクトするときに型が何でもよくなっちゃうのが[良くないみたいです][10]。怖いなあ。
+ところでこの本を読んでいて、OCaml で `exception E of 'a` や `exception E of _` と書いて例外を多相にしようとしてもエラーになることに気づきました。Polymorphic exception を素直に許すと、例外をデコンストラクトするときに型が何でもよくなっちゃうのが[良くないみたいです][10]。怖いなあ。
 
 <!--
 **良くない例** (OCaml):
@@ -68,7 +68,7 @@ let mymagic x =    (* mymagic : 'a -> 'b になってしまう *)
 自分用メモ: "Developing applications with Objective Caml" には `exception E of 'a` に対して `try raise (E false) with E x -> x + 1` がヤバいと書いてあるのだが、そもそも `(+) : int -> int -> int` なので `x + 1` は less general だし、僕が何か誤解しているらしい。
 -->
 
-対して StandardML では限定的な polymorphic exception が素直に書けます ("The Definition of Standard ML (Revised)" の 4.6節 "Scope of Explicit Type Variables" などで述べられています)。「限定的な」と書いたのは制限があるからで、たとえばトップレベルにおいて `exception E of 'a` と定義するのはエラーになります。"ML for the working programmer" の第8章には以下のように書いてありました。
+対して StandardML では限定的な polymorphic exception が `exception E of 'a` の形で書けます ("The Definition of Standard ML (Revised)" の 4.6節 "Scope of Explicit Type Variables" などで述べられています)。「限定的な」と書いたのは制限があるからで、たとえばトップレベルにおいて `exception E of 'a` と定義するのはエラーになります。"ML for the working programmer" の第8章には以下のように書いてありました。
 
 > When a polymorphic exception is declared, ML ensures that it is used with only one type, just like a restricted value declaration. The type of a top level exception must be monomorphic and the type variables of a local exception are frozen.
 
