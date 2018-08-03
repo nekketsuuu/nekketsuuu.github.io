@@ -5,7 +5,7 @@ published: true
 last-modified: 2018-08-03
 ---
 
-2018 年 8 月 1 日、Scratch 3.0 が <https://beta.scratch.mit.edu> で公開されました。これまで <https://preview.scratch.mit.edu> 等で公開されていたものの、より公開版に近づいたもののようです。
+2018 年 8 月 1 日、Scratch 3.0 が <https://beta.scratch.mit.edu> で公開されました。これまで 3.0 は <https://preview.scratch.mit.edu> 等で公開されていましたが、今回はこれをより広く公開したバージョンということのようです。
 
 <blockquote class="twitter-tweet" data-lang="ja"><p lang="en" dir="ltr">Scratch 3.0 has even more ways to create and get started. Try the Beta version now! <a href="https://t.co/CUWdJYRvNJ">https://t.co/CUWdJYRvNJ</a> <a href="https://t.co/8p0Sw2jcvv">pic.twitter.com/8p0Sw2jcvv</a></p>&mdash; Scratch Team (@scratch) <a href="https://twitter.com/scratch/status/1024701450813890560?ref_src=twsrc%5Etfw">2018年8月1日</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
