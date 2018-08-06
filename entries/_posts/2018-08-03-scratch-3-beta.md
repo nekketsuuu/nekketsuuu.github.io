@@ -2,7 +2,7 @@
 title: Scratch 3.0 beta で気づいたこと (随時更新)
 issue: 6
 published: true
-last-modified: 2018-08-03
+last-modified: 2018-08-06
 ---
 
 2018 年 8 月 1 日、Scratch 3.0 が <https://beta.scratch.mit.edu> で公開されました。これまで 3.0 は <https://preview.scratch.mit.edu> 等で公開されていましたが、今回はこれをより広く公開したバージョンということのようです。
