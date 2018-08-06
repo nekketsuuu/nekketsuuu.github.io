@@ -14,6 +14,10 @@ Scratch Team が ["Try the Scratch 3.0 Beta today!"](https://medium.com/scratcht
 
 Scratch 3.0 と 2.0 の差異は Scratch Wiki 日本語版の[この記事](https://ja.scratch-wiki.info/wiki/Scratch_3.0)によくまとまっています。主要な差異はこの記事で網羅されているので、この記事では僕が Scratch 3.0 を触っていて気になった些末な挙動やバグについてまとめたいと思います。正式リリース時にどうなっているか確認するためのメモでもあります。
 
+追記: 2.0 から 3.0 へするときに現れる非互換性については、フォーラム [PROJECT INCOMPATIBILITY LIST](https://scratch.mit.edu/discuss/topic/308114/) でまとめられています。
+
+追記: <https://scratch.mit.edu/> での作品 ID を <https://beta.scratch.mit.edu/#68760268> のように URL 末尾につけると、Scratch 2.0 の作品を 3.0 として読み込むことができることを知りました。
+
 **以下の情報は随時更新する予定であり、また 3.0 beta は頻繁に更新されうるため、古い情報が簡単に入りえることをご承知おきください。**
 
 ## Scratch GUI
