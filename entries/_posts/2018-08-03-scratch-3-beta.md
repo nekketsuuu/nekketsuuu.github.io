@@ -29,6 +29,13 @@ Scratch 3.0 と 2.0 の差異は Scratch Wiki 日本語版の[この記事](http
 * スプライトの x, y 座標が書かれる位置が変わったのに伴い、マウスカーソルの x, y 座標は表示されなくなった。
     * ステージの縦横がそれぞれ何ピクセルなのか分かりにくくなったかもしれない。
 
+## Scratch Blocks
+
+<https://github.com/LLK/scratch-blocks> で開発されています。
+
+* 「イベント」と「制御」の色が Scratch 2.0 と逆転している。これは ScratchJr に色を合わせたから。([#1489](https://github.com/LLK/scratch-blocks/issues/1489))
+* ビルドに Python 2.x が必要。ただし簡単に Python 3.x へ移行できそう。([#1679](https://github.com/LLK/scratch-blocks/issues/1679))
+
 ## Scratch Paint
 
 <https://github.com/LLK/scratch-paint> で開発されています。
@@ -47,15 +54,19 @@ Scratch 3.0 と 2.0 の差異は Scratch Wiki 日本語版の[この記事](http
 **TODO**: 再現性を確認して issue 報告する。
 
 * Scratch Link (Windows 版) のインストーラが何かおかしい。アンインストール情報は記録するもののアプリ一覧に名前を記録しないので、アプリ一覧から名前を検索して実行することができなかった。インストーラが初めてインストールに成功した後起動オプションを選ぶことで起動できるので、「アンインストール→再インストール→オプションから起動」という流れを辿れば起動できます。
-    * **TODO**: Scratch Link の issue トラッカーがどこか調べる。
+    * **TODO**: Scratch Link の issue トラッカーがどこか調べる。 → [分からなかったのでフォーラムで聞いてみました。](https://scratch.mit.edu/discuss/topic/311652/)
+* EV3 の接続を切ったり付けたりしたときの挙動が不安定。また、その場にいないはずの EV3 がアンテナ 4 本立って表示されたりする。
 * EV3 のファームウェアを現在最新の 1.10 にしないと駄目。1.09 では動かなかった。    
 * Scratch Link + EV3 Extension は PC 側の Bluetooth がオフになっていても検知してくれない。
     * また、EV3 側の Bluetooth がオフになっていても検知してくれないが、これは原理的に無理なので確認する必要がある。
 * モーターポート A ～ D は内部的には 0 ～ 3 の数値として管理されており、ポート部分に変数等をはめこんで利用する場合は 0 ～ 3 を使う必要がある。同様にセンサーポート 1 ～ 4 も内部的には 0 ～ 3 として扱われている。
 * モーターを動かすブロックが実質「1 つのモーターを ○○ 秒動かす」しかないため、EV3 Software における「タンク」に値する動作をさせるためには 2 つのブロックを並列に動作させる必要がある。これはメッセージを使えば実装できるが、マイブロックを作るときに不便。
-* brightness でカラーセンサーの輝度を読めるように見えるが、何か違う。こちらの環境では RGB モードで B だけ光らせて何かを測っていた。
-* distance が cm モードではなく インチ モードになっていた。
+* brightness でカラーセンサーの輝度を読めるように見えるが、赤色ではなく青色で測っている。どうも COL-REFLECT じゃなくて COL-AMBIENT を使っている。([#1446](https://github.com/LLK/scratch-vm/issues/1446))
+* distance が cm モードではなく インチ モードになっていた。あるいは百分率？ ([#1444](https://github.com/LLK/scratch-vm/issues/1444))
 * タッチセンサー以外のセンサーが複数個接続されることが想定されておらず、たとえば超音波センサーを複数個つけると distance が常に 0 になった。
 * モーターの回転数が 0 ～ 360 でしか取れない。これは EV3 Software の挙動と異なる。この挙動のために、「モーターを ○○ 回転回す」というブロックを作りにくい。([#1287](https://github.com/LLK/scratch-vm/issues/1287))
     * [#1287](https://github.com/LLK/scratch-vm/issues/1287) で質問してみたところ、これは子どもが理解しやすいようにするためのデザインであり、仕様であるとのこと。
 * Bluetooth 接続の都合上、Scratch から EV3 を触りながら、同時に EV3 Software + Bluetooth で触ることができないっぽい (要検証)。
+    * EV3 Extention ブロックたちの右上にある接続ボタンから切断することができます。
+* Scratch Link の仕様上？なのかもしれないが、Scratch Link につなぎながら EV3 上の Port View をすると、Scratch 側と測定モードが違ったときに不安定になる。
+* 赤外線センサーが使えない。distance としても認識されない。([#1445](https://github.com/LLK/scratch-vm/issues/1445))
