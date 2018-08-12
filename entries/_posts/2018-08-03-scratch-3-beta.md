@@ -54,7 +54,8 @@ Scratch 3.0 と 2.0 の差異は Scratch Wiki 日本語版の[この記事](http
 **TODO**: 再現性を確認して issue 報告する。
 
 * Scratch Link (Windows 版) のインストーラが何かおかしい。アンインストール情報は記録するもののアプリ一覧に名前を記録しないので、アプリ一覧から名前を検索して実行することができなかった。インストーラが初めてインストールに成功した後起動オプションを選ぶことで起動できるので、「アンインストール→再インストール→オプションから起動」という流れを辿れば起動できます。
-    * **TODO**: Scratch Link の issue トラッカーがどこか調べる。 → [分からなかったのでフォーラムで聞いてみました。](https://scratch.mit.edu/discuss/topic/311652/)
+    * Scratch Link の issue トラッカーがどこか調べる。 → [分からなかったのでフォーラムで聞いてみました。](https://scratch.mit.edu/discuss/topic/311652/)普通に Scratch 3.0 beta のフォーラムで聞けば良いようです。
+    * おそらく同じ issue: https://scratch.mit.edu/discuss/topic/311433/
 * EV3 の接続を切ったり付けたりしたときの挙動が不安定。また、その場にいないはずの EV3 がアンテナ 4 本立って表示されたりする。
 * EV3 のファームウェアを現在最新の 1.10 にしないと駄目。1.09 では動かなかった。    
 * Scratch Link + EV3 Extension は PC 側の Bluetooth がオフになっていても検知してくれない。
