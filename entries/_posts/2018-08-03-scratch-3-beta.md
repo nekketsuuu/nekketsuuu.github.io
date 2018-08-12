@@ -2,7 +2,7 @@
 title: Scratch 3.0 beta で気づいたこと (随時更新)
 issue: 6
 published: true
-last-modified: 2018-08-06
+last-modified: 2018-08-12
 ---
 
 2018 年 8 月 1 日、Scratch 3.0 が <https://beta.scratch.mit.edu> で公開されました。これまで 3.0 は <https://preview.scratch.mit.edu> 等で公開されていましたが、今回はこれをより広く公開したバージョンということのようです。
@@ -58,3 +58,4 @@ Scratch 3.0 と 2.0 の差異は Scratch Wiki 日本語版の[この記事](http
 * タッチセンサー以外のセンサーが複数個接続されることが想定されておらず、たとえば超音波センサーを複数個つけると distance が常に 0 になった。
 * モーターの回転数が 0 ～ 360 でしか取れない。これは EV3 Software の挙動と異なる。この挙動のために、「モーターを ○○ 回転回す」というブロックを作りにくい。([#1287](https://github.com/LLK/scratch-vm/issues/1287))
     * [#1287](https://github.com/LLK/scratch-vm/issues/1287) で質問してみたところ、これは子どもが理解しやすいようにするためのデザインであり、仕様であるとのこと。
+* Bluetooth 接続の都合上、Scratch から EV3 を触りながら、同時に EV3 Software + Bluetooth で触ることができないっぽい (要検証)。
