@@ -2,7 +2,7 @@
 title: Scratch 3.0 beta で気づいたこと (随時更新)
 issue: 6
 published: true
-last-modified: 2018-08-12
+last-modified: 2018-08-14
 ---
 
 2018 年 8 月 1 日、Scratch 3.0 が <https://beta.scratch.mit.edu> で公開されました。これまで 3.0 は <https://preview.scratch.mit.edu> 等で公開されていましたが、今回はこれをより広く公開したバージョンということのようです。
@@ -35,6 +35,7 @@ Scratch 3.0 と 2.0 の差異は Scratch Wiki 日本語版の[この記事](http
 
 * 「イベント」と「制御」の色が Scratch 2.0 と逆転している。これは ScratchJr に色を合わせたから。([#1489](https://github.com/LLK/scratch-blocks/issues/1489))
 * ビルドに Python 2.x が必要。ただし簡単に Python 3.x へ移行できそう。([#1679](https://github.com/LLK/scratch-blocks/issues/1679))
+* 「○度に向ける」の角度指定ツールが分かりやすくなっている。
 
 ## Scratch Paint
 
