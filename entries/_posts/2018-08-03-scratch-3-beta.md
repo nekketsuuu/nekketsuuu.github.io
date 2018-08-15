@@ -2,7 +2,7 @@
 title: Scratch 3.0 beta で気づいたこと (随時更新)
 issue: 6
 published: true
-last-modified: 2018-08-14
+last-modified: 2018-08-15
 ---
 
 2018 年 8 月 1 日、Scratch 3.0 が <https://beta.scratch.mit.edu> で公開されました。これまで 3.0 は <https://preview.scratch.mit.edu> 等で公開されていましたが、今回はこれをより広く公開したバージョンということのようです。
@@ -25,7 +25,6 @@ Scratch 3.0 と 2.0 の差異は Scratch Wiki 日本語版の[この記事](http
 <https://github.com/LLK/scratch-gui> で開発されています。
 
 * Undo / redo が実装されている！
-* 日本語で長いコメントを書いた後コメントを閉じると、開けなくなる。([#2766](https://github.com/LLK/scratch-gui/issues/2766))
 * スプライトの x, y 座標が書かれる位置が変わったのに伴い、マウスカーソルの x, y 座標は表示されなくなった。
     * ステージの縦横がそれぞれ何ピクセルなのか分かりにくくなったかもしれない。
 
@@ -34,6 +33,7 @@ Scratch 3.0 と 2.0 の差異は Scratch Wiki 日本語版の[この記事](http
 <https://github.com/LLK/scratch-blocks> で開発されています。
 
 * 「イベント」と「制御」の色が Scratch 2.0 と逆転している。これは ScratchJr に色を合わせたから。([#1489](https://github.com/LLK/scratch-blocks/issues/1489))
+* 日本語で長いコメントを書いた後コメントを閉じると、開けなくなる。([#1680](https://github.com/LLK/scratch-blocks/issues/1680))
 * ビルドに Python 2.x が必要。ただし簡単に Python 3.x へ移行できそう。([#1679](https://github.com/LLK/scratch-blocks/issues/1679))
 * 「○度に向ける」の角度指定ツールが分かりやすくなっている。
 
