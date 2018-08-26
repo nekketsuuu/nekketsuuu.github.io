@@ -2,7 +2,7 @@
 title: Scratch 3.0 beta で気づいたこと (随時更新)
 issue: 6
 published: true
-last-modified: 2018-08-16
+last-modified: 2018-08-26
 ---
 
 2018 年 8 月 1 日、Scratch 3.0 が <https://beta.scratch.mit.edu> で公開されました。これまで 3.0 は <https://preview.scratch.mit.edu> 等で公開されていましたが、今回はこれをより広く公開したバージョンということのようです。
@@ -43,7 +43,7 @@ Scratch 3.0 と 2.0 の差異は Scratch Wiki 日本語版の[この記事](http
 
 <https://github.com/LLK/scratch-paint> で開発されています。
 
-* デフォルトがベクターモードになっており、更にベクターモードでブラシと消しゴムが使えるようになっている。
+* デフォルトがベクターモードになっており、更にベクターモードでブラシと消しゴムが使えるようになっている。(なお、2.0 でも鉛筆なら使えた。)
     * <blockquote class="twitter-tweet" data-lang="ja"><p lang="ja" dir="ltr">Scratch 3.0 betaのscratch-paint、デフォがベクターモードで、2.0と違ってベクターモードでもブラシと消しゴムが使えるようになってる。塗りつぶした領域を消すと分割されて別パーツ扱いになったりする (なるほど)。どういう思想でベクターを優先するデザインにしたのだろう <a href="https://t.co/QupnIlUAor">https://t.co/QupnIlUAor</a> <a href="https://t.co/Bfwyfn9Hum">pic.twitter.com/Bfwyfn9Hum</a></p>&mdash; ねっけつ (@nekketsuuu) <a href="https://twitter.com/nekketsuuu/status/1024961881197305856?ref_src=twsrc%5Etfw">2018年8月2日</a></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 * Scratch 2.0 の頃にあった、「中心」を変えるツールがまだ無い。([#32](https://github.com/LLK/scratch-paint/issues/32), [#456](https://github.com/LLK/scratch-paint/issues/456), [#528](https://github.com/LLK/scratch-paint/issues/528))
 * 色選択ツールにカラーパレットが無い。([#580](https://github.com/LLK/scratch-paint/issues/580))
