@@ -19,4 +19,4 @@ Ubuntu 18.04 に bwrap をインストールするには [bubblewrap](https://pa
 sudo apt install bubblewrap
 ```
 
-古い Ubuntu だと APT リポジトリに bubblewrap がありません。特に、Ubuntu 16.04 にはありません。この問題は opam の [Issue #3424](https://github.com/ocaml/opam/issues/3424) で議論されていますが、現状自分で bubblewrap >=0.1.7 をビルドするのが一番簡単そうです。(一応サンドボックス機能を無効化すれば bwrap を使わないのでひとまずは大丈夫になるのですが……。)
+古い Ubuntu だと APT リポジトリに bubblewrap がありません。特に、Ubuntu 16.04 にはありません。この問題は opam の [Issue #3424](https://github.com/ocaml/opam/issues/3424) で議論されていますが、現状自分でなるべく新しい bubblewrap (少なくとも 0.1.7 以上) をビルドするのが一番簡単そうです。(一応サンドボックス機能を無効化すれば bwrap を使わないのでひとまずは大丈夫になるのですが……。)
