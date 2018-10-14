@@ -2,7 +2,7 @@
 title: opam2.0 のために Ubuntu へ bwrap をインストールする
 issue: 8
 published: true
-last-modified: 2018-10-09
+last-modified: 2018-10-14
 ---
 
 opam2.0 をインストールしようとすると「できれば [bwrap](https://github.com/projectatomic/bubblewrap) をインストールしてください」的な警告メッセージが出てくることがあります。警告メッセージと [OPAM の FAQ](https://opam.ocaml.org/doc/FAQ.html#Why-does-opam-require-bwrap) に書かれているとおり、これは opam2.0 から導入されたサンドボックス機能のために必要とされます。
