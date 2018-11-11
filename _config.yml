@@ -1,6 +1,9 @@
 encoding: utf-8
 timezone: Asia/Tokyo
 
+exclude:
+  - ISSUE_TEMPLATE.md
+
 # Site settings
 title: nekketsu^ω
 title_math: \mathsf{nekketsu}^\omega
