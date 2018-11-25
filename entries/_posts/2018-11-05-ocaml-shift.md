@@ -2,12 +2,12 @@
 title: OCaml におけるシフト演算子の実装
 issue: 10
 published: true
-last-modified: 2018-11-05
+last-modified: 2018-11-25
 ---
 
 OCaml の [Pervasives][1] にはシフト演算子として `(lsl)`, `(lsr)`, `(asr)` があります。
 ところで OCaml の整数は GC のために末尾の 1 bit を使っています。
-そこで、シフト演算子も含め OCaml の算術演算子はこのビットを一旦退避させてから計算しています。
+そこで OCaml のシフト演算子はこのビットを一旦退避させてから計算しています。
 この記事ではその部分の実装をメモっておきます。
 
 環境: OCaml 4.07.0
