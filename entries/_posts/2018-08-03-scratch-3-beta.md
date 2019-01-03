@@ -1,8 +1,8 @@
 ---
-title: Scratch 3.0 beta で気づいたこと (随時更新)
+title: Scratch 3.0 beta で気づいたこと
 issue: 6
 published: true
-last-modified: 2018-09-10
+last-modified: 2019-01-03
 ---
 
 2018 年 8 月 1 日、Scratch 3.0 が <https://beta.scratch.mit.edu> で公開されました。これまで 3.0 は <https://preview.scratch.mit.edu> 等で公開されていましたが、今回はこれをより広く公開したバージョンということのようです。
@@ -19,6 +19,8 @@ Scratch 3.0 と 2.0 の差異は Scratch Wiki 日本語版の[この記事](http
 追記: <https://scratch.mit.edu/> での作品 ID を <https://beta.scratch.mit.edu/#68760268> のように URL 末尾につけると、Scratch 2.0 の作品を 3.0 として読み込むことができることを知りました。
 
 **以下の情報は随時更新する予定であり、また 3.0 beta は頻繁に更新されうるため、古い情報が簡単に入りえることをご承知おきください。**
+
+追記: 2019年1月2日夕方のメンテナンス後、Scratch 3.0 が正式に使えるようになりました。まだバグはありますが、ひとまずこの記事の随時更新は終了します。
 
 ## Scratch GUI
 
