@@ -9,6 +9,8 @@ last-modified: 2019-08-31
 
 CWiiDをUbuntu 14.04 LTSでコンパイルして、wmgui, lswm, wminputを使えるようにする。
 
+<!--more-->
+
 [Scratchで使いたかった](/entries/2016/01/20/scratch-wii.html)という話の流れですがこの記事にScratchは出てきません。あと、単に使うだけなら`apt-get install`できます。
 
 ## 1. git clone
