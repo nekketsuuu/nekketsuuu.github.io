@@ -4,28 +4,22 @@ layout: default
 
 <div class="home">
 
-  <h1 class="page-heading">Posts</h1>
+  <h1 class="page-heading"># 記事</h1>
 
   <ul class="post-list">
     {% for post in site.categories.entries %}
       <li>
-	<div>
-          <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}&nbsp;:&nbsp;</span>
-          <span><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></span>
-	</div>
-	<div class="post-digest">{{ post.excerpt | strip_html | strip_newlines | truncate: 100 }}</div>
+	      <div><span class="post-meta">{{ post.date | date: "%Y年%-m月%-d日" }}：</span><span><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></span></div>
+	      <div class="post-digest">{{ post.excerpt | strip_html | strip_newlines | truncate: 100 }}</div>
       </li>
     {% endfor %}
   </ul>
 
-  <h1 class="page-heading">Slides</h1>
+  <h1 class="page-heading"># スライド</h1>
 
   <ul class="post-list">
     <li>
-      <div>
-        <span class="post-meta">May 31, 2019&nbsp;:&nbsp;</span>
-	<span><a class="post-link" href="https://docs.google.com/presentation/d/1D6awJp9zWIKeJwTCMotPQsJcMEA4E8b8bzC19IJgV4g/edit?usp=sharing">スタック・オーバーフローのモデレーターって何？</a></span>
-      </div>
+      <div><span class="post-meta">2019年5月31日：</span><span><a class="post-link" href="https://docs.google.com/presentation/d/1D6awJp9zWIKeJwTCMotPQsJcMEA4E8b8bzC19IJgV4g/edit?usp=sharing">スタック・オーバーフローのモデレーターって何？</a></span></div>
       <div class="post-digest">スタック・オーバーフロー MeetUp in 東京 2019、イントロ説明＆自分の LT</div>
     </li>
   </ul>
@@ -34,19 +28,16 @@ layout: default
   <ul class="post-list">
     {% for post in site.categories.slides %}
       <li>
-	<div>
-          <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}&nbsp;:&nbsp;</span>
-          <span><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></span>
-	</div>
+	      <div><span class="post-meta">{{ post.date | date: "%Y年%-m月%-d日" }}：</span><span><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></span></div>
       </li>
     {% endfor %}
   </ul>
   -->
 
-  <h1 class="page-heading">Others</h1>
+  <h1 class="page-heading"># その他</h1>
 
   <ul>
-    <li><a href="satysfi-my-soul">SATySFi My Soul</a>: SATySFi のコード例をまとめているサイトです。</li>
-    <li><a href="https://scrapbox.io/nekketsuuu/">ねっけつメモ</a>: Scrapbox です。</li>
+    <li><a href="satysfi-my-soul">SATySFi My Soul</a>：SATySFi のコード例をまとめているサイトです。</li>
+    <li><a href="https://scrapbox.io/nekketsuuu/">ねっけつメモ</a>：Scrapbox です。</li>
   </ul>
 </div>
