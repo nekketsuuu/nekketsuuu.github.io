@@ -1,2 +1,5 @@
 Sitemap: https://nekketsuuu.github.io/sitemap.xml
 Sitemap: https://nekketsuuu.github.io/satysfi-my-soul/sitemap.xml
+
+User-Agent:*
+Disallow: /vtuber-links/
