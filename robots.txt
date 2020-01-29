@@ -3,3 +3,4 @@ Sitemap: https://nekketsuuu.github.io/satysfi-my-soul/sitemap.xml
 
 User-Agent:*
 Disallow: /vtuber-links/
+Disallow: /slackemojigen/
