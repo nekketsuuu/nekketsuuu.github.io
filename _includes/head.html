@@ -11,11 +11,6 @@
   <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
   <link rel="icon" type="image/x-icon" href="{{ "/favicon.ico" | prepend: site.baseurl }}">
 
-  {% if page.categories contains "slides" %}
-    <!-- settings for reveal.js -->
-    {% include head_slide.html %}
-  {% endif %}
-
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
 </head>

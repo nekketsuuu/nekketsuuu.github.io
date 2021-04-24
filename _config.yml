@@ -9,7 +9,6 @@ title: nekketsu^ω
 title_math: \mathsf{nekketsu}^\omega
 description:  I'm nekketsuuu (ω)
 baseurl: ""
-reveal_path: /reveal.js/
 url: "https://nekketsuuu.github.io"
 twitter_username: nekketsuuu
 github_username:  nekketsuuu
@@ -21,20 +20,10 @@ defaults:
       path: "entries"
     values:
       layout: "entry"
-  -
-    scope:
-      path: "slides"
-    values:
-      layout: "slide"
 
-# For writing markdown of slide easily
-slide:
-  begin:   '<section data-markdown><script type="text/template">'
-  begin90: '<section style="font-size: 0.9em;" data-markdown><script type="text/template">'
-  begin80: '<section style="font-size: 0.8em;" data-markdown><script type="text/template">'
-  begin70: '<section style="font-size: 0.7em;" data-markdown><script type="text/template">'
-  begin60: '<section style="font-size: 0.6em;" data-markdown><script type="text/template">'
-  end: '</script></section>'
+exclude:
+  - "slides"
+  - "assets/slides"
 
 # Build settings
 markdown: kramdown
