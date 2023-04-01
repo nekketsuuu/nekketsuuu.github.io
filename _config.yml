@@ -1,9 +1,6 @@
 encoding: utf-8
 timezone: Asia/Tokyo
 
-exclude:
-  - ISSUE_TEMPLATE.md
-
 # Site settings
 title: nekketsu^ω
 title_math: \mathsf{nekketsu}^\omega
@@ -22,6 +19,7 @@ defaults:
       layout: "entry"
 
 exclude:
+  - ISSUE_TEMPLATE.md
   - "slides"
   - "assets/slides/2016-07-08-authenticity-by-types-2"
   - "assets/slides/2016-07-20-authenticity-by-types-3"
