@@ -9,8 +9,8 @@ layout: default
   <ul class="post-list">
     {% for post in site.categories.entries %}
       <li>
-	      <div><span class="post-meta">{{ post.date | date: "%Y年%-m月%-d日" }}：</span><span><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></span></div>
-	      <div class="post-digest">{{ post.excerpt | strip_html | strip_newlines | truncate: 100 }}</div>
+        <div><span class="post-meta">{{ post.date | date: "%Y年%-m月%-d日" }}：</span><span><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></span></div>
+        <div class="post-digest">{{ post.excerpt | strip_html | strip_newlines | truncate: 100 }}</div>
       </li>
     {% endfor %}
   </ul>
