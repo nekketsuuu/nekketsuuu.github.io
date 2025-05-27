@@ -20,9 +20,6 @@ defaults:
 
 exclude:
   - ISSUE_TEMPLATE.md
-  - "slides"
-  - "assets/slides/2016-07-08-authenticity-by-types-2"
-  - "assets/slides/2016-07-20-authenticity-by-types-3"
 
 # Build settings
 markdown: kramdown
