@@ -3,7 +3,6 @@ timezone: Asia/Tokyo
 
 # Site settings
 title: nekketsu^ω
-title_math: \mathsf{nekketsu}^\omega
 description:  I'm nekketsuuu (ω)
 baseurl: ""
 url: "https://nekketsuuu.github.io"
